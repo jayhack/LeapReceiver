@@ -214,16 +214,26 @@ class Leap_Synth:
     # train the classifier 
     def train_main (self):
 
-        ### Step 1: load in the data and print out stats about it ###
-        print_status ("Gesture_Recognizer", "Loading Data")
-        self.gesture_recognizer.load_data ()
-        # self.gesture_recognizer.eliminate_second_hand ()
-        self.gesture_recognizer.print_data_stats ()
-        ### Step 2: cluster the poses ###
+        ### Step 1: load in all the gestures ###
+        print_message ("Loading gestures")
+        self.gesture_recognizer.load_gestures ()
+        self.gesture_recognizer.print_gestures_stats ()
 
-        print_status ("Gesture_Recognizer", "Training Model")
-        self.gesture_recognizer.train_model ()
+        ### Step 2: train the HMMs ###
+        print_message ("Getting hmms")
+        self.gesture_recognizer.get_hmms ()
 
+        ### Step 3: get examples ###
+        print_message ("Getting examples for training/testing")
+        self.gesture_recognizer.get_all_examples ()
+        self.gesture_recognizer.split_training_testing_examples ()
+
+        ### Step 4: train the classifier and save the entire model ###
+        self.gesture_recognizer.train_classifier ()
+        self.gesture_recognizer.save_model ()
+
+        ### Step 5: evaluate the classifier ###
+        self.gesture_recognizer.evaluate_classifier ()
 
 
 
