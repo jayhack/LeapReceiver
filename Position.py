@@ -66,7 +66,7 @@ class Position:
 			positional_features.append (float(position[1]))
 			positional_features.append (float(position[2]))
 
-			#--- Yaw/Pitch/Roll ---
+			#--- Yaw/Pitch/Roll/Direction ---
 			direction = hand.direction 
 			normal = hand.palm_normal	
 			positional_features.append (float(direction.yaw))
