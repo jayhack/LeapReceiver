@@ -13,7 +13,7 @@ import os
 import sys
 import select 
 import time
-import curses
+import timeit
 
 #--- Leap ---
 ### NOTE: change the path below to the location of your local installation ###
@@ -57,6 +57,9 @@ class Leap_Synth:
         self.max_interface = Max_Interface ()
         self.gesture_recognizer = Gesture_Recognizer ()
 
+        ### Step 3: determine what the fps is ###
+        self.determine_fps ()
+
 
     # Function: Destructor 
     # --------------------
@@ -68,6 +71,7 @@ class Leap_Synth:
 
         ### Step 2: remove leap listener ###        
         self.controller.remove_listener(self.listener)
+
 
 
     # Function: get_frame
@@ -83,6 +87,21 @@ class Leap_Synth:
 
         return frame
 
+
+
+    # Function: determine_fps
+    # -----------------------
+    # gets 30 frames in order to determine the fps
+    def determine_fps (self):
+
+        start = timeit.timeit()
+        for i in range(30):
+            print i
+            frame = self.get_frame ()
+        stop = timeit.timeit()
+
+        self.fps = stop - start
+        print "fps: ", self.fps
 
 
 
@@ -401,10 +420,9 @@ class Leap_Synth:
 # contains all main operation of the program
 def main():
 
-    ### Step 1: create Leap_Synth object ###
+    ### Step 1: create Leap_Synth object, sleep until its ready to go ###
     leap_synth = Leap_Synth ()
     time.sleep (0.7)
-
 
     ### Step 2: enter main interface ###
     leap_synth.interface_main ()
