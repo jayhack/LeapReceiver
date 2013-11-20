@@ -127,7 +127,7 @@ Hit me up on FB with any questions. I should be pretty easy to find if you are o
 
 
 Enjoy!
-- Jay Hack, Class of 2015
+Jay Hack, Class of 2015
 
 
 
